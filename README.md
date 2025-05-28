@@ -57,3 +57,6 @@ This script takes a query as input, uses the LangChain [retrieval](https://pytho
 ## Adding Documents
 
 To add additional documents just copy them to the `docs/` directory. The application can support formats other than Markdown but you may need to install additional python packages.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
