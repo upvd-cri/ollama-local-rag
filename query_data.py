@@ -1,12 +1,10 @@
 import argparse
-from langchain_community.llms import Ollama
+from langchain_ollama import ChatOllama
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_community.embeddings import OllamaEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.document_loaders import DirectoryLoader
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
+from langchain_ollama import OllamaEmbeddings
 
 FAISS_PATH = "faiss"
 
@@ -18,7 +16,7 @@ def main():
     query_text = args.query_text
 
     # Initialize LLM
-    llm = Ollama(model="llama2:13b")
+    llm = ChatOllama(model="llama3", temperature=0)
 
     # Initialize embedding model
     embeddings = OllamaEmbeddings(model="mxbai-embed-large")
@@ -27,7 +25,7 @@ def main():
     vector = FAISS.load_local(FAISS_PATH, embeddings, allow_dangerous_deserialization=True)
 
     # Set up chain
-    prompt = ChatPromptTemplate.from_template("""Answer the following question based only on the provided context:
+    prompt = ChatPromptTemplate.from_template("""Réponds à la question suivante en vous basant uniquement sur le contexte fourni:
 
     <context>
     {context}
